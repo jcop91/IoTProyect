@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/padding_row"
+    android:paddingLeft="@dimen/padding_row"
+    android:paddingRight="@dimen/padding_row"
+    android:paddingBottom="@dimen/padding_row">
+
+    <LinearLayout
+        android:id="@+id/EdgeRow"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/holo_red_dark"
+        android:paddingTop="@dimen/padding_row"
+        android:paddingLeft="@dimen/padding_row"
+        android:paddingRight="@dimen/padding_row"
+        android:paddingBottom="@dimen/padding_row"
+        >
+
+        <RelativeLayout
+            android:id="@+id/LineLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/ContainerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="7dp"
+                android:text="Contenedor de carne de res"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/containername_textsize" />
+
+            <ImageView
+                android:id="@+id/CircleDraw"
+                android:layout_width="@dimen/iv_size"
+                android:layout_height="@dimen/iv_size"
+                android:layout_alignRight="@id/ContainerName"
+                android:layout_marginTop="@dimen/iv_marginTop"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

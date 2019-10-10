@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/padding_row"
+    android:paddingLeft="@dimen/padding_row"
+    android:paddingRight="@dimen/padding_row"
+    android:paddingBottom="@dimen/padding_row">
+
+    <!--<LinearLayout
+        android:id="@+id/EdgeRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_row"
+        android:paddingLeft="@dimen/padding_row"
+        android:paddingRight="@dimen/padding_row"
+        android:paddingBottom="@dimen/padding_row"
+        >
+
+        <RelativeLayout
+            android:id="@+id/LineLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/ContainerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/containername_textsize"
+                android:textColor="@android:color/black"
+                />
+
+            <ImageView
+                android:id="@+id/CircleDraw"
+                android:layout_width="@dimen/iv_size"
+                android:layout_height="@dimen/iv_size"
+                android:layout_alignRight="@id/ContainerName"
+                android:layout_marginTop="@dimen/iv_marginTop"
+                android:layout_marginRight="@dimen/iv_marginRight"
+                android:layout_alignParentRight="true"
+                />
+
+            <TextView
+                android:id="@+id/ContainerData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ContainerName"
+                android:layout_marginLeft="@dimen/edge_size"
+                android:layout_marginRight="@dimen/edge_size"
+                android:lines="3"
+                android:textSize="@dimen/datacontainer_textsize"
+                android:textColor="@android:color/black"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>-->
+
+</android.support.design.widget.CoordinatorLayout>

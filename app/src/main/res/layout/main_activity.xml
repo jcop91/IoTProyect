@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_tuppersens"></ImageView>
+        <EditText
+            android:id="@+id/setMultText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingresa tu nombre"
+            android:maxLines="1"></EditText>
+        <EditText
+            android:id="@+id/setEmailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Ingresa tu correo"
+            android:maxLines="1"></EditText>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Guardar datos"></Button>
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/FabMenuStart"
+        android:layout_width="@dimen/floatingbutton_size"
+        android:layout_height="@dimen/floatingbutton_size"
+        android:layout_gravity="right|bottom"
+        android:background="@drawable/float_shape_button"
+        android:src="@android:drawable/ic_menu_add"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:contentDescription="TODO"></ImageView>
+</android.support.design.widget.CoordinatorLayout>

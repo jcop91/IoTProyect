@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_row">10dp</dimen>
+    <dimen name="edge_size">3dp</dimen>
+    <dimen name="containername_textsize">25sp</dimen>
+    <dimen name="margintop_lixtview">25sp</dimen>
+    <dimen name="iv_size">20dp</dimen>
+    <dimen name="iv_marginRight">10dp</dimen>
+    <dimen name="iv_marginTop">8dp</dimen>
+    <dimen name="datacontainer_textsize">10sp</dimen>
+    <dimen name="margin_floatingbutton">30dp</dimen>
+    <dimen name="floatingbutton_size">50dp</dimen>
+</resources>
