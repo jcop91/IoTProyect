@@ -18,9 +18,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.ListData"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
-
         <activity android:name=".Activities.CaptureData"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 

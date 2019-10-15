@@ -1,9 +1,13 @@
 package mx.iteso.iotproyect.Aplication;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+
+import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import mx.iteso.iotproyect.Models.Tools;
 import mx.iteso.iotproyect.Models.Toppers;
@@ -25,5 +29,6 @@ public class RunApp extends Application {
         toppers = realm.where(Toppers.class).findAll();
         EmptyBD = Tools.isEmptyDB(realm,User.class);
         realm.close();
+
     }
 }
