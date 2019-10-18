@@ -3,20 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/padding_row"
-    android:paddingLeft="@dimen/padding_row"
-    android:paddingRight="@dimen/padding_row"
-    android:paddingBottom="@dimen/padding_row">
+    android:paddingTop="3dp"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp"
+    android:paddingBottom="3dp">
 
     <LinearLayout
         android:id="@+id/EdgeRow"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:background="@android:color/holo_red_dark"
-        android:paddingTop="@dimen/padding_row"
-        android:paddingLeft="@dimen/padding_row"
-        android:paddingRight="@dimen/padding_row"
-        android:paddingBottom="@dimen/padding_row"
+        android:paddingTop="2dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="3dp"
         >
 
         <RelativeLayout
@@ -30,7 +30,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="7dp"
                 android:layout_marginLeft="7dp"
                 android:text="Contenedor de carne de res"
                 android:textColor="@android:color/black"

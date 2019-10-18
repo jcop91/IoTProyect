@@ -1,6 +1,5 @@
 package mx.iteso.iotproyect.Models;
 
-import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
@@ -13,14 +12,11 @@ public class User extends RealmObject {
     @Required
     private String email;
 
-    private RealmList<Toppers> toppers;
-
     public User(){}
 
     public User(String Name, String Email){
         this.id = "0";
         this.fullname = Name;
-        this.toppers = new RealmList<Toppers>();
         this.email = Email;
     }
 
@@ -44,5 +40,4 @@ public class User extends RealmObject {
 
     public void setEmail(String email) { this.email = email; }
 
-    public RealmList<Toppers> getToppers() { return toppers; }
 }

@@ -7,16 +7,18 @@ import io.realm.annotations.Required;
 public class Toppers extends RealmObject {
     @PrimaryKey
     private String id;
+    @Required
     private String name;
-    private int level;
     private int type;
+    private int level;
 
     public Toppers(){}
 
-    public Toppers(String Name,  int Type){
-        this.id = "0";
+    public Toppers(String ID, String Name,  int Type){
+        this.id = ID;
         this.name = Name;
-        this.level = 0;
+        //this.level = 0;
+        this.level = 3;
         this.type = Type;
     }
 

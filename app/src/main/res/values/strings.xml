@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TupperSens</string>
     <string name="name_container">Contenedor 1</string>
+    <string name="scan_qr_code">Coloque un código Qr en el interior del rectángulo del visor para escanear</string>
 </resources>

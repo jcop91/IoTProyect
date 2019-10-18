@@ -18,30 +18,17 @@
         <EditText
             android:id="@+id/setMultText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"></EditText>
+            android:layout_height="wrap_content"></EditText>
         <EditText
             android:id="@+id/setEmailText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"></EditText>
+            android:layout_height="wrap_content"></EditText>
         <Button
             android:id="@+id/btnSaveData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Guardar datos"></Button>
+            ></Button>
 
     </LinearLayout>
-    <ImageView
-        android:id="@+id/FabMenuStart"
-        android:layout_width="@dimen/floatingbutton_size"
-        android:layout_height="@dimen/floatingbutton_size"
-        android:layout_gravity="right|bottom"
-        android:background="@drawable/float_shape_button"
-        android:src="@android:drawable/ic_menu_add"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:contentDescription="TODO"></ImageView>
 </android.support.design.widget.CoordinatorLayout>

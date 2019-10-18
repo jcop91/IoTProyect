@@ -3,7 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colortypeTopper1">#00B0FF</color>
-    <color name="colortypeTopper2">#3D5AFE</color>
-    <color name="colortypeTopper0">#FF3A00</color>
+    <color name="colortypeTopper1">#9fd5d1</color>
+    <color name="colortypeTopper2">#FF8C69</color>
+    <color name="colortypeTopper0">#FF0000</color>
 </resources>

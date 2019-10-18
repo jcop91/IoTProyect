@@ -10,22 +10,28 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
+import io.realm.RealmList;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import mx.iteso.iotproyect.Adapter.AlertAdapter;
 import mx.iteso.iotproyect.Adapter.ListDataAdapter;
-import mx.iteso.iotproyect.Aplication.RunApp;
+import mx.iteso.iotproyect.Models.Tools;
 import mx.iteso.iotproyect.Models.Toppers;
+import mx.iteso.iotproyect.Models.User;
 import mx.iteso.iotproyect.R;
 
 public class Main_Activity extends AppCompatActivity implements RealmChangeListener<RealmResults<Toppers>>, AdapterView.OnItemClickListener {
 
-    private boolean EmptyBD = RunApp.EmptyBD;
+    private boolean EmptyUserBD, EmptyTopperBD;
     private ListView ls_list;
     private ImageView iv_floatbtn;
     private ListDataAdapter adapter;
     private RealmResults<Toppers> toppers;
+    private User user;
     private Realm realm;
     private AlertDialog dialog;
     private String Msjbtn, Msj;
@@ -34,41 +40,51 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(EmptyBD){
+        this.realm = Realm.getDefaultInstance();
+        //String data = Realm.getDefaultConfiguration().getPath();
+        EmptyUserBD = Tools.isEmptyDB(realm,User.class);
+        EmptyTopperBD = Tools.isEmptyDB(realm,Toppers.class);
+
+        if(EmptyUserBD){
             Intent intentEmptyData = new Intent(this,CaptureData.class);
             startActivity(intentEmptyData);
+        }else if(EmptyTopperBD){
+            Intent intent = new Intent(getApplicationContext(),CaptureData.class);
+            intent.putExtra("type",1);
+            startActivity(intent);
         }else{
             setContentView(R.layout.main_activity_list);
             this.ls_list = findViewById(R.id.DataList);
             this.iv_floatbtn = findViewById(R.id.FabMenu);
 
-            this.realm = Realm.getDefaultInstance();
-            toppers = realm.where(Toppers.class).findAll();
+            toppers = realm.where(Toppers.class).findAll().sort("level", Sort.DESCENDING);
             toppers.addChangeListener(this);
 
             adapter = new ListDataAdapter(this,toppers);
             ls_list.setAdapter(adapter);
+            ls_list.setOnItemClickListener(this);
 
-            iv_floatbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Msjbtn= "Agregar topper"; Msj="¿Desea agregar nuevo topper?";
-                    Drawable draw = getResources().getDrawable(android.R.drawable.ic_input_add,null);
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(getApplicationContext(),CaptureData.class);
-                            intent.putExtra("type",0);
-                            startActivity(intent);
-                            dialog.cancel();
-                        }
-                    });
-                    showAlertForAnyActions(thread,draw);
-                }
-            });
-
+            iv_floatbtn.setOnClickListener(addTopper);
         }
     }
+
+    private View.OnClickListener addTopper = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Msjbtn= "Agregar topper"; Msj="¿Desea agregar nuevo topper?";
+            Drawable draw = getResources().getDrawable(android.R.drawable.ic_input_add,null);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(getApplicationContext(),CaptureData.class);
+                    intent.putExtra("type",1);
+                    startActivity(intent);
+                    dialog.cancel();
+                }
+            });
+            showAlertForAnyActions(thread,draw);
+        }
+    };
 
     private void showAlertForAnyActions(Thread proccess, Drawable drawable){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -87,17 +103,23 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, final int position, long l) {
         Msjbtn= "Editar topper"; Msj="¿Desea editar el topper '"+toppers.get(position).getName()+"'?";
+        final String idString = toppers.get(position).getId();
         Drawable draw = getResources().getDrawable(android.R.drawable.ic_menu_edit,null);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(getApplicationContext(),CaptureData.class);
-                intent.putExtra("id", toppers.get(position).getId());
-                intent.putExtra("type",1);
+                intent.putExtra("id",idString);
+                intent.putExtra("type",2);
                 startActivity(intent);
                 dialog.cancel();
             }
         });
         showAlertForAnyActions(thread,draw);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+       onDestroy();
     }
 }

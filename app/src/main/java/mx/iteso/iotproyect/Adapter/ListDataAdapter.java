@@ -20,7 +20,7 @@ import static mx.iteso.iotproyect.R.drawable.circle_shape_red;
 public class ListDataAdapter extends BaseAdapter {
     private Context context;
     private List<Toppers> list;
-    private int color;
+    private int color, colorLevel;
 
     public ListDataAdapter(Context Context, List<Toppers> List){
         this.context = Context;
@@ -43,11 +43,11 @@ public class ListDataAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View converView, ViewGroup viewGroup) {
+    public View getView(int position, View converView,  ViewGroup viewGroup) {
          ViewHolder viewHolder;
 
          if(converView == null){
-             converView = LayoutInflater.from(context).inflate(R.layout.itemsimple_row_datalist, null);
+             converView = LayoutInflater.from(context).inflate(R.layout.itemsimple_row_datalist, viewGroup,false);
              viewHolder = new ViewHolder();
              viewHolder.EdgeRow = converView.findViewById(R.id.EdgeRow);
              viewHolder.ContainerName = converView.findViewById(R.id.ContainerName);
@@ -58,7 +58,7 @@ public class ListDataAdapter extends BaseAdapter {
              viewHolder = (ViewHolder) converView.getTag();
          }
 
-         Toppers topper = list.get(position);
+         final Toppers topper = list.get(position);
 
          color = (topper.getType() == 0)?
                  context.getResources().getColor(R.color.colortypeTopper1,null):
@@ -68,13 +68,16 @@ public class ListDataAdapter extends BaseAdapter {
          viewHolder.EdgeRow.setBackgroundColor(color);
          viewHolder.ContainerName.setText(topper.getName());
 
-        switch (topper.getLevel()){
-            case 1: viewHolder.LevelStatus.setImageResource(circle_shape_green);   break;
-            case 2: viewHolder.LevelStatus.setImageResource(circle_shape_ambar);   break;
-            case 3: viewHolder.LevelStatus.setImageResource(circle_shape_red);   break;
-            default:
-                viewHolder.LevelStatus.setVisibility(View.INVISIBLE);
-        }
+         if(topper.getLevel() == 0){
+             viewHolder.LevelStatus.setVisibility(View.INVISIBLE);
+         }else{
+             viewHolder.LevelStatus.setVisibility(View.VISIBLE);
+
+             colorLevel =(topper.getLevel() == 1)? circle_shape_green:
+                     (topper.getLevel() == 2)? circle_shape_ambar:
+                             circle_shape_red;
+             viewHolder.LevelStatus.setImageResource(colorLevel);
+         }
 
         return converView;
     }
