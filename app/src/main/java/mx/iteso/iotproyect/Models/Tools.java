@@ -16,6 +16,12 @@ public class Tools {
         return (result.size() > 0)? false: true;
     }
 
+    public static <T extends RealmObject> boolean existsTopper(Realm realm, Class<T> anyClass, String id){
+        RealmResults<T> result = realm.where(anyClass).equalTo("id",id).findAll();
+
+        return (result.size() > 0)? true: false;
+    }
+
     public static boolean isEmailValid(String email) {
         boolean isValid = false;
 
@@ -44,7 +50,6 @@ public class Tools {
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .name("iotTeam3.realm")
                 .schemaVersion(42)
-               // .deleteRealmIfMigrationNeeded()
                 .build();
 
         Realm.setDefaultConfiguration(config);

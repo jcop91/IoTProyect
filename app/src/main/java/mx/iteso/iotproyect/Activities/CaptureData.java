@@ -9,13 +9,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import io.realm.Realm;
+import mx.iteso.iotproyect.Models.Tools;
 import mx.iteso.iotproyect.Models.Toppers;
 import mx.iteso.iotproyect.Models.User;
 import mx.iteso.iotproyect.R;
@@ -37,21 +37,23 @@ public class CaptureData extends AppCompatActivity{
         EmailText = findViewById(R.id.setEmailText);
         btnSaveInfo = findViewById(R.id.btnSaveData);
 
-        MultiText.setMaxLines(1);
-        EmailText.setMaxLines(1);
         this.realm = Realm.getDefaultInstance();
 
         if(getIntent().getExtras() != null){
             type = getIntent().getExtras().getInt("type");
             switch (type){
                 case 1:
-                    new IntentIntegrator(this).setPrompt(this.getString(R.string.scan_qr_code)).initiateScan();
+                    new IntentIntegrator(this)
+                            .setPrompt(this.getString(R.string.scan_qr_code))
+                            .setOrientationLocked(true)
+                            .initiateScan();
                     break;
                 case 2:
                     id = getIntent().getExtras().getString("id");
                     toppers = realm.where(Toppers.class).equalTo("id",id).findFirst();
                     MultiText.setText(toppers.getName());
                     MultiText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    MultiText.setGravity(Gravity.CENTER);
                     btnSaveInfo.setText("Guardar Nombre");
                     EmailText.setVisibility(View.INVISIBLE);
                     break;
@@ -70,17 +72,39 @@ public class CaptureData extends AppCompatActivity{
             public void onClick(View view) {
                 switch (type){
                     case 0:
-                        realm.beginTransaction();
-                        User newUser = new User(MultiText.getText().toString(),EmailText.getText().toString());
-                        realm.copyToRealm(newUser);
-                        realm.commitTransaction();
+                        boolean validEmail = Tools.isEmailValid(EmailText.getText().toString());
+                        boolean validName = Tools.isnotEmptyValid(MultiText.getText().toString());
+
+                        if(validEmail || validName){
+                            if(validName){
+                                if(validEmail){
+                                    realm.beginTransaction();
+                                    User newUser = new User(MultiText.getText().toString(),EmailText.getText().toString());
+                                    realm.copyToRealm(newUser);
+                                    realm.commitTransaction();
+                                }else
+                                    Toast.makeText(CaptureData.this,"Agrege correo correcto",Toast.LENGTH_SHORT).show();
+                            }else
+                                Toast.makeText(CaptureData.this,"Agrege nombre",Toast.LENGTH_SHORT).show();
+                        }else
+                            Toast.makeText(CaptureData.this,"Agrege nombre y correo",Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         String [] data = QRcode.split("-");
-                        realm.beginTransaction();
-                        toppers = new Toppers(data[0],EmailText.getText().toString(),Integer.parseInt(data[1]));
-                        realm.copyToRealm(toppers);
-                        realm.commitTransaction();
+                        boolean topperIsExists = Tools.existsTopper(realm,Toppers.class,data[0]);
+                        if(topperIsExists){
+                            Toast.makeText(CaptureData.this,"El topper ya existe",Toast.LENGTH_SHORT).show();
+                        }else{
+                            boolean IsnotEmpty = Tools.isnotEmptyValid(EmailText.getText().toString());
+                            if(IsnotEmpty){
+                                realm.beginTransaction();
+                                toppers = new Toppers(data[0],EmailText.getText().toString(),Integer.parseInt(data[1]));
+                                realm.copyToRealm(toppers);
+                                realm.commitTransaction();
+                            }
+                            else
+                                Toast.makeText(CaptureData.this,"Agregar un topper correcto",Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 2:
                         realm.beginTransaction();

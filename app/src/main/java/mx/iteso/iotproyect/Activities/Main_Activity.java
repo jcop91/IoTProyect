@@ -41,7 +41,7 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
         super.onCreate(savedInstanceState);
 
         this.realm = Realm.getDefaultInstance();
-        //String data = Realm.getDefaultConfiguration().getPath();
+
         EmptyUserBD = Tools.isEmptyDB(realm,User.class);
         EmptyTopperBD = Tools.isEmptyDB(realm,Toppers.class);
 
@@ -120,6 +120,6 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-       onDestroy();
+       finish();
     }
 }
