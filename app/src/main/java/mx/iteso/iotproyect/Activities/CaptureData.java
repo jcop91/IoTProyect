@@ -15,10 +15,14 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import io.realm.Realm;
+import mx.iteso.iotproyect.Aplication.AwsService;
 import mx.iteso.iotproyect.Models.Tools;
 import mx.iteso.iotproyect.Models.Toppers;
 import mx.iteso.iotproyect.Models.User;
 import mx.iteso.iotproyect.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CaptureData extends AppCompatActivity{
     private EditText MultiText, EmailText;
@@ -78,8 +82,8 @@ public class CaptureData extends AppCompatActivity{
                         if(validEmail || validName){
                             if(validName){
                                 if(validEmail){
-                                    realm.beginTransaction();
                                     User newUser = new User(MultiText.getText().toString(),EmailText.getText().toString());
+                                    realm.beginTransaction();
                                     realm.copyToRealm(newUser);
                                     realm.commitTransaction();
                                 }else

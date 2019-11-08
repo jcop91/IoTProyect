@@ -11,14 +11,14 @@ public class Toppers extends RealmObject {
     private String name;
     private int type;
     private int level;
+    private String userid;
 
     public Toppers(){}
 
     public Toppers(String ID, String Name,  int Type){
         this.id = ID;
         this.name = Name;
-        //this.level = 0;
-        this.level = 3;
+        this.level = 0;
         this.type = Type;
     }
 
@@ -49,4 +49,8 @@ public class Toppers extends RealmObject {
     public int getType() {return type;}
 
     public void setType(int type) {this.type = type;}
+
+    public String getUserid() { return userid; }
+
+    public void setUserid(String userid) { this.userid = userid; }
 }

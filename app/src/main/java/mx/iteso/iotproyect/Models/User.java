@@ -40,4 +40,9 @@ public class User extends RealmObject {
 
     public void setEmail(String email) { this.email = email; }
 
+    public String toString(){
+        return "{ fullname:'"+fullname+
+                "',email:'"+email+
+                "'}";}
+
 }

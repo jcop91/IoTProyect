@@ -9,20 +9,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import mx.iteso.iotproyect.Adapter.AlertAdapter;
 import mx.iteso.iotproyect.Adapter.ListDataAdapter;
+import mx.iteso.iotproyect.Aplication.AwsService;
 import mx.iteso.iotproyect.Models.Tools;
 import mx.iteso.iotproyect.Models.Toppers;
 import mx.iteso.iotproyect.Models.User;
 import mx.iteso.iotproyect.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Main_Activity extends AppCompatActivity implements RealmChangeListener<RealmResults<Toppers>>, AdapterView.OnItemClickListener {
 

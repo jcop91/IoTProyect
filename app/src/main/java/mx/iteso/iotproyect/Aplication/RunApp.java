@@ -6,6 +6,7 @@ import io.realm.RealmResults;
 import mx.iteso.iotproyect.Models.Tools;
 import mx.iteso.iotproyect.Models.Toppers;
 import mx.iteso.iotproyect.Models.User;
+import retrofit2.Retrofit;
 
 public class RunApp extends Application {
     public static User user;

@@ -7,8 +7,13 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Tools {
+    private static final String Url = "http://tuppersens.us-west-2.elasticbeanstalk.com/api/servicesIoT/";
+    private static final String localhost="148.201.214.14";//"192.168.1.6";//
+    private static final String UrlPruebas = "http://"+localhost+"/IoT/api/servicesIoT/";
 
     public static <T extends RealmObject> boolean isEmptyDB(Realm realm, Class<T> anyClass){
         RealmResults<T> result = realm.where(anyClass).findAll();
@@ -53,5 +58,15 @@ public class Tools {
                 .build();
 
         Realm.setDefaultConfiguration(config);
+    }
+
+    public static Retrofit retrofit(){
+        Retrofit instance = new Retrofit
+                .Builder()
+                .baseUrl(UrlPruebas)
+                .addConverterFactory(GsonConverterFactory.create())
+                //.baseUrl(Url)
+                .build();
+        return instance;
     }
 }
