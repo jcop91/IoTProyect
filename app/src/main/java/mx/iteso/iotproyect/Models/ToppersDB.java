@@ -4,18 +4,17 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class Toppers extends RealmObject {
+public class ToppersDB extends RealmObject {
     @PrimaryKey
     private String id;
     @Required
     private String name;
     private int type;
     private int level;
-    private String userid;
 
-    public Toppers(){}
+    public ToppersDB(){}
 
-    public Toppers(String ID, String Name,  int Type){
+    public ToppersDB(String ID, String Name, int Type){
         this.id = ID;
         this.name = Name;
         this.level = 0;
@@ -49,8 +48,4 @@ public class Toppers extends RealmObject {
     public int getType() {return type;}
 
     public void setType(int type) {this.type = type;}
-
-    public String getUserid() { return userid; }
-
-    public void setUserid(String userid) { this.userid = userid; }
 }

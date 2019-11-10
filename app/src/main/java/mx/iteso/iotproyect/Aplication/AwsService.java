@@ -1,29 +1,21 @@
 package mx.iteso.iotproyect.Aplication;
 
-import java.util.ArrayList;
+import com.google.gson.JsonObject;
 
-import mx.iteso.iotproyect.Models.Toppers;
-import mx.iteso.iotproyect.Models.User;
+import mx.iteso.iotproyect.Models.UserRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Part;
 
 public interface AwsService {
 
- /*   @POST("createnewuser")
-    Call<User> createUser(@Body User user);
-
-    @PUT("changenametopper")
+    @POST("createnewuser")
+    //Call<UserRequest> createUser(@Body JsonObject body);
+    Call<UserRequest> createUser(@Body UserRequest user);
+    /*@PUT("changenametopper")
     @FormUrlEncoded
-    Call<Toppers> changeTopperName(@Field("id") String Id, @Field("name") String Name, @Field("userId") String UserId);
+    Call<ToppersDB> changeTopperName(@Field("id") String Id, @Field("name") String Name, @Field("userId") String UserId);
 
     @GET("topperslist")
-    Call<ArrayList<Toppers>>  getList();
-
-  */
+    Call<ArrayList<ToppersDB>>  getList();*/
 }

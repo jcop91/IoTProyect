@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -19,23 +16,19 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 import mx.iteso.iotproyect.Adapter.AlertAdapter;
 import mx.iteso.iotproyect.Adapter.ListDataAdapter;
-import mx.iteso.iotproyect.Aplication.AwsService;
 import mx.iteso.iotproyect.Models.Tools;
-import mx.iteso.iotproyect.Models.Toppers;
-import mx.iteso.iotproyect.Models.User;
+import mx.iteso.iotproyect.Models.ToppersDB;
+import mx.iteso.iotproyect.Models.UserDB;
 import mx.iteso.iotproyect.R;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class Main_Activity extends AppCompatActivity implements RealmChangeListener<RealmResults<Toppers>>, AdapterView.OnItemClickListener {
+public class Main_Activity extends AppCompatActivity implements RealmChangeListener<RealmResults<ToppersDB>>, AdapterView.OnItemClickListener {
 
     private boolean EmptyUserBD, EmptyTopperBD;
     private ListView ls_list;
     private ImageView iv_floatbtn;
     private ListDataAdapter adapter;
-    private RealmResults<Toppers> toppers;
-    private User user;
+    private RealmResults<ToppersDB> toppers;
+    private UserDB userDB;
     private Realm realm;
     private AlertDialog dialog;
     private String Msjbtn, Msj;
@@ -46,8 +39,8 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
 
         this.realm = Realm.getDefaultInstance();
 
-        EmptyUserBD = Tools.isEmptyDB(realm,User.class);
-        EmptyTopperBD = Tools.isEmptyDB(realm,Toppers.class);
+        EmptyUserBD = Tools.isEmptyDB(realm, UserDB.class);
+        EmptyTopperBD = Tools.isEmptyDB(realm, ToppersDB.class);
 
         if(EmptyUserBD){
             Intent intentEmptyData = new Intent(this,CaptureData.class);
@@ -61,7 +54,7 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
             this.ls_list = findViewById(R.id.DataList);
             this.iv_floatbtn = findViewById(R.id.FabMenu);
 
-            toppers = realm.where(Toppers.class).findAll().sort("level", Sort.DESCENDING);
+            toppers = realm.where(ToppersDB.class).findAll().sort("level", Sort.DESCENDING);
             toppers.addChangeListener(this);
 
             adapter = new ListDataAdapter(this,toppers);
@@ -100,7 +93,7 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
     }
 
     @Override
-    public void onChange(RealmResults<Toppers> toppers) {
+    public void onChange(RealmResults<ToppersDB> toppers) {
         adapter.notifyDataSetChanged();
     }
 

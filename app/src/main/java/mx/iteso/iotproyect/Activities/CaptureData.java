@@ -15,19 +15,16 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import io.realm.Realm;
-import mx.iteso.iotproyect.Aplication.AwsService;
 import mx.iteso.iotproyect.Models.Tools;
-import mx.iteso.iotproyect.Models.Toppers;
-import mx.iteso.iotproyect.Models.User;
+import mx.iteso.iotproyect.Models.ToppersDB;
+import mx.iteso.iotproyect.Models.UserDB;
+import mx.iteso.iotproyect.Models.UserRequest;
 import mx.iteso.iotproyect.R;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CaptureData extends AppCompatActivity{
     private EditText MultiText, EmailText;
     private Button btnSaveInfo;
-    private Toppers toppers;
+    private ToppersDB toppersDB;
     private Realm realm;
     private String id, QRcode;
     private int type = 0;
@@ -54,8 +51,8 @@ public class CaptureData extends AppCompatActivity{
                     break;
                 case 2:
                     id = getIntent().getExtras().getString("id");
-                    toppers = realm.where(Toppers.class).equalTo("id",id).findFirst();
-                    MultiText.setText(toppers.getName());
+                    toppersDB = realm.where(ToppersDB.class).equalTo("id",id).findFirst();
+                    MultiText.setText(toppersDB.getName());
                     MultiText.setInputType(InputType.TYPE_CLASS_TEXT);
                     MultiText.setGravity(Gravity.CENTER);
                     btnSaveInfo.setText("Guardar Nombre");
@@ -82,10 +79,14 @@ public class CaptureData extends AppCompatActivity{
                         if(validEmail || validName){
                             if(validName){
                                 if(validEmail){
-                                    User newUser = new User(MultiText.getText().toString(),EmailText.getText().toString());
-                                    realm.beginTransaction();
-                                    realm.copyToRealm(newUser);
-                                    realm.commitTransaction();
+                                    UserRequest newUserRequest = new UserRequest(MultiText.getText().toString(),EmailText.getText().toString());
+                                    UserDB newUserDB = new UserDB(newUserRequest.getFullname(),newUserRequest.getEmail());
+                                    Tools.sendNetworkRequestNewUser(CaptureData.this,newUserRequest);
+
+                                    newUserDB.setId(newUserRequest.getId());
+                                   // realm.beginTransaction();
+                                    //realm.copyToRealm(newUserDB);
+                                    //realm.commitTransaction();
                                 }else
                                     Toast.makeText(CaptureData.this,"Agrege correo correcto",Toast.LENGTH_SHORT).show();
                             }else
@@ -95,15 +96,15 @@ public class CaptureData extends AppCompatActivity{
                         break;
                     case 1:
                         String [] data = QRcode.split("-");
-                        boolean topperIsExists = Tools.existsTopper(realm,Toppers.class,data[0]);
+                        boolean topperIsExists = Tools.existsTopper(realm, ToppersDB.class,data[0]);
                         if(topperIsExists){
                             Toast.makeText(CaptureData.this,"El topper ya existe",Toast.LENGTH_SHORT).show();
                         }else{
                             boolean IsnotEmpty = Tools.isnotEmptyValid(EmailText.getText().toString());
                             if(IsnotEmpty){
                                 realm.beginTransaction();
-                                toppers = new Toppers(data[0],EmailText.getText().toString(),Integer.parseInt(data[1]));
-                                realm.copyToRealm(toppers);
+                                toppersDB = new ToppersDB(data[0],EmailText.getText().toString(),Integer.parseInt(data[1]));
+                                realm.copyToRealm(toppersDB);
                                 realm.commitTransaction();
                             }
                             else
@@ -112,8 +113,8 @@ public class CaptureData extends AppCompatActivity{
                         break;
                     case 2:
                         realm.beginTransaction();
-                        toppers.setName(MultiText.getText().toString());
-                        realm.copyToRealmOrUpdate(toppers);
+                        toppersDB.setName(MultiText.getText().toString());
+                        realm.copyToRealmOrUpdate(toppersDB);
                         realm.commitTransaction();
                         break;
                         default:

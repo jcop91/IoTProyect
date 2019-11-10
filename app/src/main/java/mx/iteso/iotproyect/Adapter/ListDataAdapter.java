@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.List;
 
-import mx.iteso.iotproyect.Models.Toppers;
+import mx.iteso.iotproyect.Models.ToppersDB;
 import mx.iteso.iotproyect.R;
 
 import static mx.iteso.iotproyect.R.drawable.circle_shape_green;
@@ -19,10 +19,10 @@ import static mx.iteso.iotproyect.R.drawable.circle_shape_red;
 
 public class ListDataAdapter extends BaseAdapter {
     private Context context;
-    private List<Toppers> list;
+    private List<ToppersDB> list;
     private int color, colorLevel;
 
-    public ListDataAdapter(Context Context, List<Toppers> List){
+    public ListDataAdapter(Context Context, List<ToppersDB> List){
         this.context = Context;
         this.list = List;
     }
@@ -58,7 +58,7 @@ public class ListDataAdapter extends BaseAdapter {
              viewHolder = (ViewHolder) converView.getTag();
          }
 
-         final Toppers topper = list.get(position);
+         final ToppersDB topper = list.get(position);
 
          color = (topper.getType() == 0)?
                  context.getResources().getColor(R.color.colortypeTopper1,null):

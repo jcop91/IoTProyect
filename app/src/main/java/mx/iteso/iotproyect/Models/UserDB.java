@@ -4,7 +4,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class User extends RealmObject {
+public class UserDB extends RealmObject {
     @PrimaryKey
     private String id;
     @Required
@@ -12,10 +12,9 @@ public class User extends RealmObject {
     @Required
     private String email;
 
-    public User(){}
+    public UserDB(){}
 
-    public User(String Name, String Email){
-        this.id = "0";
+    public UserDB(String Name, String Email){
         this.fullname = Name;
         this.email = Email;
     }
@@ -32,17 +31,11 @@ public class User extends RealmObject {
         return fullname;
     }
 
-    public void setName(String name) {
-        this.fullname = name;
-    }
-
     public String getEmail() { return email; }
 
-    public void setEmail(String email) { this.email = email; }
-
-    public String toString(){
+   /* public String toString(){
         return "{ fullname:'"+fullname+
                 "',email:'"+email+
-                "'}";}
+                "'}";}*/
 
 }
