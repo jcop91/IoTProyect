@@ -16,7 +16,7 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 import mx.iteso.iotproyect.Adapter.AlertAdapter;
 import mx.iteso.iotproyect.Adapter.ListDataAdapter;
-import mx.iteso.iotproyect.Models.Tools;
+import mx.iteso.iotproyect.Services.Tools;
 import mx.iteso.iotproyect.Models.ToppersDB;
 import mx.iteso.iotproyect.Models.UserDB;
 import mx.iteso.iotproyect.R;
@@ -46,6 +46,7 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
             Intent intentEmptyData = new Intent(this,CaptureData.class);
             startActivity(intentEmptyData);
         }else if(EmptyTopperBD){
+
             Intent intent = new Intent(getApplicationContext(),CaptureData.class);
             intent.putExtra("type",1);
             startActivity(intent);

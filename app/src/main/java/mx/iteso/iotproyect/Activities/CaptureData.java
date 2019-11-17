@@ -15,9 +15,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import io.realm.Realm;
-import mx.iteso.iotproyect.Models.Tools;
+import mx.iteso.iotproyect.Services.Tools;
 import mx.iteso.iotproyect.Models.ToppersDB;
-import mx.iteso.iotproyect.Models.UserDB;
 import mx.iteso.iotproyect.Models.UserRequest;
 import mx.iteso.iotproyect.R;
 
@@ -26,7 +25,7 @@ public class CaptureData extends AppCompatActivity{
     private Button btnSaveInfo;
     private ToppersDB toppersDB;
     private Realm realm;
-    private String id, QRcode;
+    private String id, QRcode, userId;
     private int type = 0;
 
     @Override
@@ -80,13 +79,8 @@ public class CaptureData extends AppCompatActivity{
                             if(validName){
                                 if(validEmail){
                                     UserRequest newUserRequest = new UserRequest(MultiText.getText().toString(),EmailText.getText().toString());
-                                    UserDB newUserDB = new UserDB(newUserRequest.getFullname(),newUserRequest.getEmail());
-                                    Tools.sendNetworkRequestNewUser(CaptureData.this,newUserRequest);
+                                    Tools.sendNetworkRequestNewUser(CaptureData.this,newUserRequest,realm);
 
-                                    newUserDB.setId(newUserRequest.getId());
-                                   // realm.beginTransaction();
-                                    //realm.copyToRealm(newUserDB);
-                                    //realm.commitTransaction();
                                 }else
                                     Toast.makeText(CaptureData.this,"Agrege correo correcto",Toast.LENGTH_SHORT).show();
                             }else
@@ -96,33 +90,27 @@ public class CaptureData extends AppCompatActivity{
                         break;
                     case 1:
                         String [] data = QRcode.split("-");
+
                         boolean topperIsExists = Tools.existsTopper(realm, ToppersDB.class,data[0]);
                         if(topperIsExists){
                             Toast.makeText(CaptureData.this,"El topper ya existe",Toast.LENGTH_SHORT).show();
                         }else{
                             boolean IsnotEmpty = Tools.isnotEmptyValid(EmailText.getText().toString());
                             if(IsnotEmpty){
-                                realm.beginTransaction();
                                 toppersDB = new ToppersDB(data[0],EmailText.getText().toString(),Integer.parseInt(data[1]));
-                                realm.copyToRealm(toppersDB);
-                                realm.commitTransaction();
+                                Tools.sendNetworkRequestChangeTopperName(CaptureData.this,type,realm,toppersDB);
                             }
                             else
                                 Toast.makeText(CaptureData.this,"Agregar un topper correcto",Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 2:
-                        realm.beginTransaction();
                         toppersDB.setName(MultiText.getText().toString());
-                        realm.copyToRealmOrUpdate(toppersDB);
-                        realm.commitTransaction();
+                        Tools.sendNetworkRequestChangeTopperName(CaptureData.this,type,realm,toppersDB);
                         break;
                         default:
                             Toast.makeText(CaptureData.this,"Error al capturar los datos",Toast.LENGTH_SHORT).show();
-
                 }
-                Intent intent = new Intent(CaptureData.this,Main_Activity.class);
-                startActivity(intent);
             }
         });
     }
@@ -138,6 +126,7 @@ public class CaptureData extends AppCompatActivity{
             MultiText.setText(QRcode);
             MultiText.setTextSize((float) 14);
             MultiText.setGravity(Gravity.CENTER);
+            EmailText.setGravity(Gravity.CENTER);
             EmailText.setVisibility(View.VISIBLE);
             EmailText.setText("");
             EmailText.setHint("Ingrese el nombre del topper");
@@ -151,7 +140,6 @@ public class CaptureData extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(CaptureData.this,Main_Activity.class);
-        startActivity(intent);
+        finish();
     }
 }
