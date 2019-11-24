@@ -16,10 +16,13 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 import mx.iteso.iotproyect.Adapter.AlertAdapter;
 import mx.iteso.iotproyect.Adapter.ListDataAdapter;
+import mx.iteso.iotproyect.Models.UserRequest;
+import mx.iteso.iotproyect.Services.AwsService;
 import mx.iteso.iotproyect.Services.Tools;
 import mx.iteso.iotproyect.Models.ToppersDB;
 import mx.iteso.iotproyect.Models.UserDB;
 import mx.iteso.iotproyect.R;
+import retrofit2.Call;
 
 public class Main_Activity extends AppCompatActivity implements RealmChangeListener<RealmResults<ToppersDB>>, AdapterView.OnItemClickListener {
 
@@ -41,6 +44,7 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
 
         EmptyUserBD = Tools.isEmptyDB(realm, UserDB.class);
         EmptyTopperBD = Tools.isEmptyDB(realm, ToppersDB.class);
+
 
         if(EmptyUserBD){
             Intent intentEmptyData = new Intent(this,CaptureData.class);

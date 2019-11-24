@@ -54,15 +54,6 @@ public class Tools {
         return isValid;
     }
 
-    public static boolean isnotEmptyValid(String str){
-        boolean isValid = false;
-
-        if(!str.isEmpty()){
-            isValid = true;
-        }
-        return isValid;
-    }
-
     public static void configRealms(){
 
         RealmConfiguration config = new RealmConfiguration.Builder()
@@ -89,7 +80,7 @@ public class Tools {
     public static void sendNetworkRequestNewUser(final Context context, final UserRequest user, final Realm realm){
 
         AwsService service = InstanceHttpMethods().create(AwsService.class);
-        final UserDB newUserDB = new UserDB(user.getFullname(),user.getEmail());
+        final UserDB newUserDB = new UserDB(user.getFullname(),user.getEmail(),user.getSenderID());
 
         Call<UserRequest> call = service.createUser(user);
         call.enqueue(new CustomCallBack<UserRequest>(context){
@@ -98,6 +89,7 @@ public class Tools {
                 if(!response.isSuccessful()){
                     Toast.makeText(context,"Error: "+ response.code(),Toast.LENGTH_LONG).show();
                 }
+
                 newUserDB.setId(response.body().getId());
                 realm.beginTransaction();
                 realm.copyToRealm(newUserDB);
@@ -146,6 +138,21 @@ public class Tools {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(context,"Error: "+ t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public static void dummyData(String data, Context context){
+        AwsService service = Tools.InstanceHttpMethods().create(AwsService.class);
+        Call<Void> call = service.dummydata(data);
+        call.enqueue(new CustomCallBack<Void>(context) {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
             }
         });
     }

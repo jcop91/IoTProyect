@@ -1,6 +1,15 @@
 package mx.iteso.iotproyect.Aplication;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 import mx.iteso.iotproyect.Services.Tools;

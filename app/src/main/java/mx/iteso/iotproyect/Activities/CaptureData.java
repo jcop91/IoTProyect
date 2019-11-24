@@ -1,23 +1,25 @@
 package mx.iteso.iotproyect.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import io.realm.Realm;
+import mx.iteso.iotproyect.Models.UserRequest;
+import mx.iteso.iotproyect.Services.FirebaseInstanceIDStartService;
 import mx.iteso.iotproyect.Services.Tools;
 import mx.iteso.iotproyect.Models.ToppersDB;
-import mx.iteso.iotproyect.Models.UserRequest;
 import mx.iteso.iotproyect.R;
 
 public class CaptureData extends AppCompatActivity{
@@ -25,9 +27,10 @@ public class CaptureData extends AppCompatActivity{
     private Button btnSaveInfo;
     private ToppersDB toppersDB;
     private Realm realm;
-    private String id, QRcode, userId;
+    private String id, QRcode, senderId;
     private int type = 0;
 
+    @SuppressLint("WrongThread")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,37 +75,40 @@ public class CaptureData extends AppCompatActivity{
             public void onClick(View view) {
                 switch (type){
                     case 0:
-                        boolean validEmail = Tools.isEmailValid(EmailText.getText().toString());
-                        boolean validName = Tools.isnotEmptyValid(MultiText.getText().toString());
+                        if(!TextUtils.isEmpty(EmailText.getText().toString()) &&
+                                !TextUtils.isEmpty(MultiText.getText().toString())){
+                            if(Tools.isEmailValid(EmailText.getText().toString())){
 
-                        if(validEmail || validName){
-                            if(validName){
-                                if(validEmail){
-                                    UserRequest newUserRequest = new UserRequest(MultiText.getText().toString(),EmailText.getText().toString());
-                                    Tools.sendNetworkRequestNewUser(CaptureData.this,newUserRequest,realm);
+                                senderId = FirebaseInstanceIDStartService.getToken();
 
-                                }else
-                                    Toast.makeText(CaptureData.this,"Agrege correo correcto",Toast.LENGTH_SHORT).show();
-                            }else
-                                Toast.makeText(CaptureData.this,"Agrege nombre",Toast.LENGTH_SHORT).show();
-                        }else
-                            Toast.makeText(CaptureData.this,"Agrege nombre y correo",Toast.LENGTH_SHORT).show();
+                                UserRequest newUserRequest = new UserRequest(
+                                        MultiText.getText().toString(),
+                                        EmailText.getText().toString(),
+                                        senderId);
+
+                                Tools.sendNetworkRequestNewUser(CaptureData.this,newUserRequest,realm);
+                            }
+                            else
+                                Toast.makeText(CaptureData.this,"El correo no es valido",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(CaptureData.this,"Agrege nombre o correo",Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         String [] data = QRcode.split("-");
+                        if(!Tools.existsTopper(realm, ToppersDB.class,data[0])){
+                            if(!TextUtils.isEmpty(EmailText.getText().toString())){
 
-                        boolean topperIsExists = Tools.existsTopper(realm, ToppersDB.class,data[0]);
-                        if(topperIsExists){
-                            Toast.makeText(CaptureData.this,"El topper ya existe",Toast.LENGTH_SHORT).show();
-                        }else{
-                            boolean IsnotEmpty = Tools.isnotEmptyValid(EmailText.getText().toString());
-                            if(IsnotEmpty){
-                                toppersDB = new ToppersDB(data[0],EmailText.getText().toString(),Integer.parseInt(data[1]));
+                                toppersDB = new ToppersDB(
+                                        data[0],EmailText.getText().toString(),
+                                        Integer.parseInt(data[1]));
                                 Tools.sendNetworkRequestChangeTopperName(CaptureData.this,type,realm,toppersDB);
                             }
                             else
-                                Toast.makeText(CaptureData.this,"Agregar un topper correcto",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CaptureData.this,"No se capturo correctamente, intente de nuevo",Toast.LENGTH_SHORT).show();
                         }
+                        else
+                            Toast.makeText(CaptureData.this,"El topper ya fue registrado",Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
                         toppersDB.setName(MultiText.getText().toString());

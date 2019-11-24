@@ -11,10 +11,13 @@ public class UserRequest implements Serializable {
     private String fullname;
     @SerializedName("email")
     private String email;
+    @SerializedName("senderID")
+    private String SenderID;
 
-    public UserRequest(String fullname, String email) {
+    public UserRequest(String fullname, String email, String senderID) {
         this.fullname = fullname;
         this.email = email;
+        this.SenderID = senderID;
     }
 
     public String getId() {
@@ -27,5 +30,9 @@ public class UserRequest implements Serializable {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getSenderID() {
+        return SenderID;
     }
 }

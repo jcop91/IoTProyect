@@ -15,4 +15,7 @@ public interface AwsService {
 
     @PUT("changenametopper")
     Call<Void> changeTopperName(@Body JsonObject body);
+
+    @POST("testcommunication")
+    Call<Void> dummydata(@Body String body);
 }
