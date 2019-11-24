@@ -119,20 +119,21 @@ public class Tools {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(!response.isSuccessful()){
                     Toast.makeText(context,"Error: "+ response.code(),Toast.LENGTH_LONG).show();
-                }else{
-                    if(type == 1){
-                        realm.beginTransaction();
-                        realm.copyToRealm(toppersDB);
-                        realm.commitTransaction();
-                    }
-                    if(type == 2){
-                        realm.beginTransaction();
-                        realm.copyToRealmOrUpdate(toppersDB);
-                        realm.commitTransaction();
-                    }
-                    Intent intent = new Intent(context, Main_Activity.class);
-                    context.startActivity(intent);
                 }
+                if(type == 1){
+                    realm.beginTransaction();
+                    realm.copyToRealm(toppersDB);
+                    realm.commitTransaction();
+                }
+                if(type == 2){
+                    realm.beginTransaction();
+                    realm.copyToRealmOrUpdate(toppersDB);
+                    realm.commitTransaction();
+                }
+
+                Intent intent = new Intent(context, Main_Activity.class);
+                context.startActivity(intent);
+
             }
 
             @Override

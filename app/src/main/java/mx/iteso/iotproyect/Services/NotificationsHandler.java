@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.drawable.Icon;
+import android.media.RingtoneManager;
 import android.os.Build;
 
 import mx.iteso.iotproyect.Activities.Main_Activity;
@@ -43,6 +44,13 @@ public class NotificationsHandler extends ContextWrapper {
             highChannel.setShowBadge(true);
             highChannel.enableVibration(true);
             highChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            highChannel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), null);
+
+            lowChannel.enableLights(true);
+            lowChannel.setShowBadge(true);
+            lowChannel.enableVibration(true);
+            lowChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            lowChannel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), null);
 
             getManager().createNotificationChannel(highChannel);
             getManager().createNotificationChannel(lowChannel);
