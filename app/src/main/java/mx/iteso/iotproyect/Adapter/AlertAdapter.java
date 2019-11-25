@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import mx.iteso.iotproyect.R;
 
+//TODO(Clase): Adaptador para la vista personalizada del menu.
 public class AlertAdapter implements View.OnClickListener {
     private Context context;
     private  String textButton;
@@ -23,6 +24,8 @@ public class AlertAdapter implements View.OnClickListener {
         this.draw = Draw;
     }
 
+    //TODO(Metodo): En esta parte se acomoda y adapta los valores
+    // a la estructura de la vista del menu.
     public View getView(View converView){
         ViewHoldes viewHoldes;
         if(converView == null){

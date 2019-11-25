@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+//TODO(Clase) Se declara el modelo para uso de la variables correspondiente a los toppers en retrofit.
 public class TopperRequest implements Serializable {
 
     @SerializedName("id")

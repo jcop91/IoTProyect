@@ -16,6 +16,7 @@ import mx.iteso.iotproyect.Services.Tools;
 import mx.iteso.iotproyect.Models.ToppersDB;
 import mx.iteso.iotproyect.Models.UserDB;
 
+//TODO(Clase Maestra): iniciar aplicacion.
 public class RunApp extends Application {
     public static UserDB userDB;
     public static RealmResults<ToppersDB> toppers;

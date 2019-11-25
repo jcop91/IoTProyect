@@ -17,6 +17,7 @@ import static mx.iteso.iotproyect.R.drawable.circle_shape_green;
 import static mx.iteso.iotproyect.R.drawable.circle_shape_ambar;
 import static mx.iteso.iotproyect.R.drawable.circle_shape_red;
 
+//TODO(Clase): Adaptador para la vista personalizada de la lista
 public class ListDataAdapter extends BaseAdapter {
     private Context context;
     private List<ToppersDB> list;
@@ -42,6 +43,8 @@ public class ListDataAdapter extends BaseAdapter {
         return id;
     }
 
+    //TODO(Metodo): En esta parte entra un elemento de la lista y se adapta con los valores
+    // a la estructura de cada fila de la lista.
     @Override
     public View getView(int position, View converView,  ViewGroup viewGroup) {
          ViewHolder viewHolder;

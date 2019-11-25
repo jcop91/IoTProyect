@@ -4,6 +4,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
+//TODO(Clase) Se declara el modelo para uso de la variables correspondiente a los toppers en realmDB.
 public class ToppersDB extends RealmObject {
     @PrimaryKey
     private String id;

@@ -8,6 +8,9 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
+//TODO(Interfaz): requerida por retrofit para definir los metodos a utilizar,
+// Aquí se declara tipo de metodo(Get,Post,Put,Delete) con la parte final de la url,
+// Se anexa lo que se envia y lo que recibe en la clase Call.
 public interface AwsService {
 
     @POST("createnewuser")
@@ -16,6 +19,4 @@ public interface AwsService {
     @PUT("changenametopper")
     Call<Void> changeTopperName(@Body JsonObject body);
 
-    @POST("testcommunication")
-    Call<Void> dummydata(@Body String body);
 }
