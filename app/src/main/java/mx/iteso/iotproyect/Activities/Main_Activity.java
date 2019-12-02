@@ -56,6 +56,7 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
             intent.putExtra("type",1);
             startActivity(intent);
         }else{
+            setIntentValues();
             //Asigna la vista pertenciente y atributos
             setContentView(R.layout.main_activity_list);
             this.ls_list = findViewById(R.id.DataList);
@@ -76,6 +77,20 @@ public class Main_Activity extends AppCompatActivity implements RealmChangeListe
 
             iv_floatbtn.setOnClickListener(addTopper);
         }
+    }
+
+    //TODO(Metodo) Se ejecuta para obtener informacion despues
+    // de pasar la informacion de una notificacion.
+    private void setIntentValues(){
+        String idTopper = getIntent().getStringExtra("id");
+        int level = Integer.parseInt(getIntent().getStringExtra("level"));
+
+        ToppersDB toppersDB = Tools.getTopper(realm, idTopper);
+        toppersDB.setLevel(level);
+
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(toppersDB);
+        realm.commitTransaction();
     }
 
     //TODO(Metodo) Se ejecuta cuando oprime el floating boton

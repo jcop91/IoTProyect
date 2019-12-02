@@ -13,7 +13,7 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import mx.iteso.iotproyect.Activities.Main_Activity;
-import mx.iteso.iotproyect.Models.CustomCallBack;
+import mx.iteso.iotproyect.Adapter.CustomCallBack;
 import mx.iteso.iotproyect.Models.StringsClass;
 import mx.iteso.iotproyect.Models.ToppersDB;
 import mx.iteso.iotproyect.Models.UserDB;
@@ -39,6 +39,12 @@ public class Tools {
         RealmResults<T> result = realm.where(anyClass).equalTo(StringsClass.idField,id).findAll();
 
         return (result.size() > 0)? true: false;
+    }
+
+    //TODO(Metodo): Metodo para traer un topper
+    public static ToppersDB getTopper(Realm realm, String id){
+        ToppersDB toppersDB = realm.where(ToppersDB.class).equalTo(StringsClass.idField,id).findFirst();
+        return toppersDB;
     }
 
     //TODO(Metodo): Valida que el correo sea valido(Tenga el formato correcto).
@@ -90,7 +96,7 @@ public class Tools {
 
         //inicializa la peticion al metodo correspondiente
         AwsService service = InstanceHttpMethods().create(AwsService.class);
-        final UserDB newUserDB = new UserDB(user.getFullname(),user.getEmail(),user.getSenderID());
+        final UserDB newUserDB = new UserDB(user.getFullname(),user.getEmail(),user.getTokenID());
 
         //Llama al metodo Call para escuchar la respuesta del WebService
         Call<UserRequest> call = service.createUser(user);

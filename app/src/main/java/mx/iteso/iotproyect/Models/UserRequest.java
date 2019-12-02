@@ -12,13 +12,13 @@ public class UserRequest implements Serializable {
     private String fullname;
     @SerializedName("email")
     private String email;
-    @SerializedName("senderID")
-    private String SenderID;
+    @SerializedName("tokenID")
+    private String TokenID;
 
-    public UserRequest(String fullname, String email, String senderID) {
+    public UserRequest(String fullname, String email, String tokenID) {
         this.fullname = fullname;
         this.email = email;
-        this.SenderID = senderID;
+        this.TokenID = tokenID;
     }
 
     public String getId() {
@@ -33,7 +33,7 @@ public class UserRequest implements Serializable {
         return email;
     }
 
-    public String getSenderID() {
-        return SenderID;
+    public String getTokenID() {
+        return TokenID;
     }
 }

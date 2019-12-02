@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_tuppersens_background"
+        android:src="@mipmap/ic_tuppersense_background"
         android:background="@android:color/transparent"></ImageView>
     <TextView
         android:id="@+id/tvMessageAlert"

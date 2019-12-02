@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_tuppersens"></ImageView>
+            android:src="@drawable/logoapi"></ImageView>
         <EditText
             android:id="@+id/setMultText"
             android:layout_width="match_parent"

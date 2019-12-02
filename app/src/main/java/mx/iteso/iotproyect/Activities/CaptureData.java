@@ -27,7 +27,7 @@ public class CaptureData extends AppCompatActivity{
     private Button btnSaveInfo;
     private ToppersDB toppersDB;
     private Realm realm;
-    private String id, QRcode, senderId;
+    private String id, QRcode, tokenID;
     private int type = 0;
 
     @Override
@@ -78,12 +78,12 @@ public class CaptureData extends AppCompatActivity{
                                 !TextUtils.isEmpty(MultiText.getText().toString())){
                             if(Tools.isEmailValid(EmailText.getText().toString())){
 
-                                senderId = FirebaseInstanceIDStartService.getToken();
+                                tokenID = FirebaseInstanceIDStartService.getToken();
 
                                 UserRequest newUserRequest = new UserRequest(
                                         MultiText.getText().toString(),
                                         EmailText.getText().toString(),
-                                        senderId);
+                                        tokenID);
 
                                 Tools.sendNetworkRequestNewUser(CaptureData.this,newUserRequest,realm);
                             }

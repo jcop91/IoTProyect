@@ -108,11 +108,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundImage" value="C:\Users\Admin\Pictures\TP.png" />
-                                      <entry key="foregroundImage" value="C:\Users\Admin\Pictures\TP.png" />
-                                      <entry key="legacyIconShape" value="NONE" />
-                                      <entry key="outputName" value="ic_tuppersens" />
-                                      <entry key="webIconShape" value="NONE" />
+                                      <entry key="backgroundImage" value="C:\Users\Admin\Pictures\logoApi.png" />
+                                      <entry key="foregroundImage" value="C:\Users\Admin\Pictures\logoApi.png" />
+                                      <entry key="outputName" value="ic_tuppersense" />
                                     </map>
                                   </option>
                                 </PersistentState>

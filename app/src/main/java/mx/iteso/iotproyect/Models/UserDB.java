@@ -12,14 +12,14 @@ public class UserDB extends RealmObject {
     private String fullname;
     @Required
     private String email;
-    private String SenderID;
+    private String TokenID;
 
     public UserDB(){}
 
-    public UserDB(String Name, String Email, String senderID){
+    public UserDB(String Name, String Email, String tokenID){
         this.fullname = Name;
         this.email = Email;
-        this.SenderID =senderID;
+        this.TokenID =tokenID;
     }
 
     public String getId() {
@@ -36,6 +36,6 @@ public class UserDB extends RealmObject {
 
     public String getEmail() { return email; }
 
-    public String getSenderID() { return SenderID; }
+    public String getTokenID() { return TokenID; }
 
 }

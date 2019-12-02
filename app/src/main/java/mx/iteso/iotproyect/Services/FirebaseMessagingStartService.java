@@ -2,8 +2,10 @@ package mx.iteso.iotproyect.Services;
 
 import android.app.Notification;
 import android.util.Log;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
 import mx.iteso.iotproyect.Models.StringsClass;
 
 //TODO(Clase): Se encarga de recibir o enviar la mensajeria por Firebase Cloud Message.
@@ -27,7 +29,9 @@ public class FirebaseMessagingStartService extends FirebaseMessagingService {
             NotificationsHandler notificationsHandler = new NotificationsHandler(this);
             Notification.Builder nb = notificationsHandler.createNotification(
                     remoteMessage.getNotification().getTitle(),
-                    remoteMessage.getNotification().getBody());
+                    remoteMessage.getNotification().getBody(),
+                    remoteMessage.getData().get("id"),
+                    remoteMessage.getData().get("level"));
             notificationsHandler.getManager().notify(++counter,nb.build());
         }
     }

@@ -4,12 +4,15 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+
 import android.graphics.drawable.Icon;
 import android.media.RingtoneManager;
 import android.os.Build;
+
 import mx.iteso.iotproyect.Activities.Main_Activity;
 import mx.iteso.iotproyect.Models.StringsClass;
 import mx.iteso.iotproyect.R;
@@ -53,18 +56,20 @@ public class NotificationsHandler extends ContextWrapper {
     }
 
     //TODO(Metodo): Se llama fuera de la clase para comenzar a generar notificaciones.
-    public Notification.Builder createNotification(String title, String message){
+    public Notification.Builder createNotification(String title, String message, String id, String level){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ){
-            return this.createNotificationWithChannel(title, message, StringsClass.CHANNEL_ID);
+            return this.createNotificationWithChannel(title, message, StringsClass.CHANNEL_ID, id , level);
         }
-        return this.createNotificationWithoutChannel(title, message);
+        return this.createNotificationWithoutChannel(title, message, id, level);
     }
 
     //TODO(Metodo): Se utiliza para asignar los datos con el esquema de la notificaciones
     // en versiones igual o mayor a la 26.
-    private Notification.Builder createNotificationWithChannel(String title,String message, String channelID){
+    private Notification.Builder createNotificationWithChannel(String title,String message, String channelID,String id, String level){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             Intent intent = new Intent(this, Main_Activity.class);
+            intent.putExtra("idTopper", id);
+            intent.putExtra("level",level);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivities(this,0, new Intent[]{intent},PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -88,8 +93,10 @@ public class NotificationsHandler extends ContextWrapper {
 
     //TODO(Metodo): Se utiliza para asignar los datos con el esquema de la notificaciones
     // en versiones menores a la 26.
-    private Notification.Builder createNotificationWithoutChannel(String title,String message){
+    private Notification.Builder createNotificationWithoutChannel(String title,String message,String id, String level){
         Intent intent = new Intent(this, Main_Activity.class);
+        intent.putExtra("idTopper", id);
+        intent.putExtra("level",level);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivities(this,0, new Intent[]{intent},PendingIntent.FLAG_CANCEL_CURRENT);
 

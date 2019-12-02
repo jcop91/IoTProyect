@@ -1,10 +1,11 @@
-package mx.iteso.iotproyect.Models;
+package mx.iteso.iotproyect.Adapter;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.WindowManager;
 
+import mx.iteso.iotproyect.Models.StringsClass;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
